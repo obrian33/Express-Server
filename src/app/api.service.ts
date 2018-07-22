@@ -46,9 +46,4 @@ export class ApiService {
     return this.http.get<Book>(url, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
-
-  // getBookById = (id: string): Observable<Book> => {
-  //   return this.http.get<Book>(apiUrl, httpOptions);
-  // }
-
 }
