@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -11,7 +11,8 @@ import { BookCreateComponent } from './book-create/book-create.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule,
+import {
+  MatInputModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatSortModule,
@@ -19,7 +20,8 @@ import { MatInputModule,
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatFormFieldModule } from '@angular/material';
+  MatFormFieldModule
+} from '@angular/material';
 
 const appRoutes: Routes = [
   {
@@ -42,7 +44,8 @@ const appRoutes: Routes = [
     component: BookEditComponent,
     data: { title: 'Edit Book' }
   },
-  { path: '',
+  {
+    path: '',
     redirectTo: '/books',
     pathMatch: 'full'
   }
@@ -61,7 +64,17 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
