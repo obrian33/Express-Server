@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
+import { Book } from 'src/app/book.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -35,14 +36,19 @@ export class ApiService {
     return body || { };
   }
 
-  getBooks = (): Observable<any> => {
-    return this.http.get(apiUrl, httpOptions).pipe(
+  getBooks = (): Observable<Array<Book>> => {
+    return this.http.get<Array<Book>>(apiUrl, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
-  getBookById = (id: string): Observable<any> => {
-    return this.http.get(apiUrl, httpOptions).pipe(
+  getBookById = (id: string): Observable<Book> => {
+    const url = `${apiUrl}/${id}`;
+    return this.http.get<Book>(url, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
+
+  // getBookById = (id: string): Observable<Book> => {
+  //   return this.http.get<Book>(apiUrl, httpOptions);
+  // }
 
 }
