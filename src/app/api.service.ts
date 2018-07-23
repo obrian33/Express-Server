@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Book } from 'src/app/book.model';
+import { NgForm } from '@angular/forms';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -44,6 +45,11 @@ export class ApiService {
   getBookById = (id: string): Observable<Book> => {
     const url = `${apiUrl}/${id}`;
     return this.http.get<Book>(url, httpOptions).pipe(
+      map(this.extractData), catchError(this.handleError));
+  }
+
+  postBook = (form: NgForm): Observable<Book> => {
+    return this.http.post<Book>(apiUrl, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 }

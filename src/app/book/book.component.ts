@@ -4,6 +4,7 @@ import { Book } from 'src/app/book.model';
 import { Observable } from 'rxjs';
 import { DataSource } from '@angular/cdk/collections';
 import { BookDataSource } from 'src/app/book-data-source';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class BookComponent implements OnInit {
     this.apiService.getBooks().subscribe((books: Array<Book>) => {
       console.log(this.books);
       this.books = books;
-    }, error => {
+    }, (error: HttpErrorResponse) => {
       console.log(error);
     });
   }
