@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '../../../node_modules/@angular/common/http';
 })
 export class BookCreateComponent implements OnInit {
   bookForm: FormGroup;
-  book: Book;
+  book: {};
 
   constructor(private apiService: ApiService,
     private router: Router,
@@ -20,7 +20,6 @@ export class BookCreateComponent implements OnInit {
 
   ngOnInit() {
     this.bookForm = this.formBuilder.group({
-      '_id': [null, Validators.required],
       'isbn': [null, Validators.required],
       'title': [null, Validators.required],
       'author': [null, Validators.required],
@@ -32,9 +31,9 @@ export class BookCreateComponent implements OnInit {
 
   onFormSubmit = (form: NgForm) => {
     console.log(form);
-    this.apiService.postBook(form).subscribe((book: Book) => {
-      const id = book._id;
-      this.book = book;
+    this.apiService.postBook(form).subscribe((resp) => {
+      const id = resp['_id'];
+      this.book = resp;
       this.router.navigate(['/book-details', id]);
     }, (error: HttpErrorResponse) => {
       console.log(error);

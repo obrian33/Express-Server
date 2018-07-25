@@ -9,7 +9,7 @@ import { Book } from 'src/app/book.model';
   styleUrls: ['./book-detail.component.scss']
 })
 export class BookDetailComponent implements OnInit {
-  book: Book;
+  book: {};
 
   constructor(private apiService: ApiService,
               private route: ActivatedRoute) { }
@@ -19,9 +19,9 @@ export class BookDetailComponent implements OnInit {
   }
 
   getBookDetails = (id: string) => {
-    this.apiService.getBookById(id).subscribe( (book: Book) => {
-      console.log(book);
-      this.book = book;
+    this.apiService.getBookById(id).subscribe( (data) => {
+      console.log(data);
+      this.book = data;
     });
   }
 

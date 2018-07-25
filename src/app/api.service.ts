@@ -6,7 +6,7 @@ import { Book } from 'src/app/book.model';
 import { NgForm } from '@angular/forms';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 const apiUrl = '/api';
 
@@ -34,22 +34,37 @@ export class ApiService {
 
   private extractData = (res: Response) => {
     const body = res;
-    return body || { };
+    return body || {};
   }
 
-  getBooks = (): Observable<Array<Book>> => {
-    return this.http.get<Array<Book>>(apiUrl, httpOptions).pipe(
+  getBooks = (): Observable<any> => {
+    return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
-  getBookById = (id: string): Observable<Book> => {
+  getBookById = (id: string): Observable<any> => {
     const url = `${apiUrl}/${id}`;
-    return this.http.get<Book>(url, httpOptions).pipe(
+    return this.http.get(url, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
-  postBook = (form: NgForm): Observable<Book> => {
-    return this.http.post<Book>(apiUrl, httpOptions).pipe(
+  postBook = (form: NgForm): Observable<any> => {
+    return this.http.post(apiUrl, form, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
+  }
+
+  updateBook(id, data): Observable<any> {
+    return this.http.put(apiUrl, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  deleteBook(id: string): Observable<{}> {
+    const url = `${apiUrl}/${id}`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 }

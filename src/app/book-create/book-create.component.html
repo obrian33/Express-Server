@@ -3,12 +3,6 @@
 </div>
 <form [formGroup]="bookForm" (ngSubmit)="onFormSubmit(bookForm.value)">
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="ID" formControlName="_id" [errorStateMatcher]="matcher">
-    <mat-error>
-      <span *ngIf="!bookForm.get('_id').valid && bookForm.get('_id').touched">Please enter id</span>
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
     <input matInput placeholder="ISBN" formControlName="isbn"
            [errorStateMatcher]="matcher">
     <mat-error>
