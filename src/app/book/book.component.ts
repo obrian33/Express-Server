@@ -13,14 +13,14 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./book.component.scss']
 })
 export class BookComponent implements OnInit {
-  books: any;
+  books: Array<Book>;
   displayedColumns = ['isbn', 'title', 'author'];
   dataSource = new BookDataSource(this.apiService);
 
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.apiService.getBooks().subscribe((books) => {
+    this.apiService.getBooks().subscribe((books: Array<Book>) => {
       console.log(this.books);
       this.books = books;
     }, (error: HttpErrorResponse) => {

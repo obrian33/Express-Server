@@ -32,24 +32,24 @@ export class ApiService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  private extractData = (res: Response) => {
+  private extractData = (res: Response): Response => {
     const body = res;
-    return body || {};
+    return body || new Response();
   }
 
-  getBooks = (): Observable<any> => {
-    return this.http.get(apiUrl, httpOptions).pipe(
+  getBooks = (): Observable<Array<Book>> => {
+    return this.http.get<Array<Book>>(apiUrl, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
-  getBookById = (id: string): Observable<any> => {
+  getBookById = (id: string): Observable<Book> => {
     const url = `${apiUrl}/${id}`;
-    return this.http.get(url, httpOptions).pipe(
+    return this.http.get<Book>(url, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
-  postBook = (form: NgForm): Observable<any> => {
-    return this.http.post(apiUrl, form, httpOptions).pipe(
+  postBook = (form: NgForm): Observable<Book> => {
+    return this.http.post<Book>(apiUrl, form, httpOptions).pipe(
       map(this.extractData), catchError(this.handleError));
   }
 
